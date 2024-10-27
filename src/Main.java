@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -32,13 +34,13 @@ public class Main {
     
     public static void line() {
         System.out.println("----------------------------------");
-        }
+    }
     
     public static void mostrarcardapio(int opcao) {
         if (opcao >= 1 && opcao <= 6) {
             System.out.println("Produtos:");
             for (int i = 0; i < cardapio[opcao - 1].length; i++) {
-                System.out.printf("%d. %s - R$ %.2f%n",i+1, cardapio[opcao - 1][i], precos[opcao - 1][i]);
+                System.out.printf("%d. %s - R$ %.2f%n", i + 1, cardapio[opcao - 1][i], precos[opcao - 1][i]);
             }
         } else {
             System.out.println("Opção inválida!");
@@ -48,32 +50,52 @@ public class Main {
     public static int input() {
         Scanner input = new Scanner(System.in);
         System.out.print("Qual opção você deseja?: ");
-        int opcao = input.nextInt();
-        return opcao;
+        return input.nextInt();
     }
 
     public static void main(String[] args) {
-        int resposta = 0, produto = 0;
+        Scanner input = new Scanner(System.in);
+        int resposta = 0, produto = 0, index = 0;
         double total = 0;
         
-        int[] quantidade = new int[999];
         String[] nome = new String[999];
         double[] preco = new double[999];
 
         while (resposta != 7) {
             menuprincipal();
             resposta = input();
-            
-            if (resposta != 7) {
-            	line();
-	            mostrarcardapio(resposta);
-	            produto = input();
-	            total += precos[resposta - 1][produto - 1];
-	            System.out.println(total);
-	            line();
+
+            if (resposta >= 1 && resposta <= 6) {
+                line();
+                mostrarcardapio(resposta);
+                produto = input();
+                System.out.printf("%s adicionado \n",cardapio[resposta - 1][produto - 1]);
+                total += precos[resposta - 1][produto - 1];
+                nome[index] = cardapio[resposta - 1][produto - 1];
+                preco[index] = precos[resposta - 1][produto - 1];
+                index++;
+                line();
+            } else if (resposta == 7) {
+                System.out.println("Seu pedido é:");
+                System.out.println(Arrays.toString(Arrays.stream(nome).filter(Objects::nonNull).toArray()));
+                System.out.printf("O total é de R$ %.2f%n", total);
+                System.out.print("Deseja Sair? [S/N]: ");
+                String saida = input.next();
+                if (saida.equalsIgnoreCase("N")) {
+                    resposta = 0;
+                }
             }
         }
+
         line();
-        System.out.println("Até logo!");
+        System.out.println("Seu pedido final foi:");
+        for (int i = 0; i < nome.length; i++) {
+            if (nome[i] != null) {
+                System.out.printf("%d. %s - R$ %.2f%n", i + 1, nome[i], preco[i]);
+            }
+        }
+        System.out.printf("O total foi de R$ %.2f%n", total);
+
+        input.close();
     }
 }
