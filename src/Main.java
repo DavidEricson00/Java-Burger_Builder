@@ -31,7 +31,7 @@ public class Main {
     }
     
     public static void line() {
-        System.out.println("----------------------------------:");
+        System.out.println("----------------------------------");
         }
     
     public static void mostrarcardapio(int opcao) {
@@ -54,7 +54,11 @@ public class Main {
 
     public static void main(String[] args) {
         int resposta = 0, produto = 0;
-        double total = 0; 
+        double total = 0;
+        
+        int[] quantidade = new int[999];
+        String[] nome = new String[999];
+        double[] preco = new double[999];
 
         while (resposta != 7) {
             menuprincipal();
