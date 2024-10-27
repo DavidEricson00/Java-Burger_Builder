@@ -30,6 +30,10 @@ public class Main {
         System.out.println("7. Sair");
     }
     
+    public static void line() {
+        System.out.println("----------------------------------:");
+        }
+    
     public static void mostrarcardapio(int opcao) {
         if (opcao >= 1 && opcao <= 6) {
             System.out.println("Produtos:");
@@ -57,15 +61,15 @@ public class Main {
             resposta = input();
             
             if (resposta != 7) {
+            	line();
 	            mostrarcardapio(resposta);
 	            produto = input();
-	            total += precos[resposta - 1][produto];
+	            total += precos[resposta - 1][produto - 1];
 	            System.out.println(total);
+	            line();
             }
-            
-            
         }
-
+        line();
         System.out.println("Até logo!");
     }
 }
