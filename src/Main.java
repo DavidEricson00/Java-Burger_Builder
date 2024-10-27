@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -32,24 +31,14 @@ public class Main {
     }
     
     public static void mostrarcardapio(int opcao) {
-    	if (opcao == 1) {
-    		System.out.println(Arrays.toString(cardapio[0]));
-    	}
-    	else if (opcao == 2) {
-    		
-    	}
-    	else if (opcao == 3) {
-    		
-    	}
-    	else if (opcao == 4) {
-    		
-    	}
-    	else if (opcao == 5) {
-    		
-    	}
-    	else if (opcao == 6) {
-    		
-    	}
+        if (opcao >= 1 && opcao <= 6) {
+            System.out.println("Produtos:");
+            for (int i = 0; i < cardapio[opcao - 1].length; i++) {
+                System.out.printf("%d. %s - R$ %.2f%n",i+1, cardapio[opcao - 1][i], precos[opcao - 1][i]);
+            }
+        } else {
+            System.out.println("Opção inválida!");
+        }
     }
 
     public static int input() {
@@ -60,12 +49,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int resposta = 0;
+        int resposta = 0, produto = 0;
+        double total = 0; 
 
         while (resposta != 7) {
             menuprincipal();
             resposta = input();
-            mostrarcardapio(resposta);
+            
+            if (resposta != 7) {
+	            mostrarcardapio(resposta);
+	            produto = input();
+	            total += precos[resposta - 1][produto];
+	            System.out.println(total);
+            }
+            
+            
         }
 
         System.out.println("Até logo!");
